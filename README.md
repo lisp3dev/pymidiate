@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*-
+<!-- -*- coding: utf-8 -*- -->
 # pyMidiate
-実験段階
+#実験段階
