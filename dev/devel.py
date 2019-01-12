@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
-import midiate
+#import midiate
 import tkinter
 from tkinter import font
 
 
-def choose_input():
+def choose_input(midiate):
     inputs = midiate.enum_input()
     def f(x):
         if x in inputs: return x
     return (f('MPKmini2') or f('USB Oxygen 8 v2') or f('A-500S') or f('loopMIDI port') or
             inputs[0])
 
-def choose_output():
+def choose_output(midiate):
     outputs = midiate.enum_output()
     def f(x):
         if x in outputs: return x
     return (f('CASIO USB-MIDI') or f('Microsoft GS Wavetable Synth') or
             outputs[0])
 
-def open_input():
-    return midiate.open_input(name=choose_input());
+def open_input(midiate):
+    return midiate.open_input(name=choose_input(midiate));
 
-def open_output():
-    return midiate.open_output(name=choose_output());
+def open_output(midiate):
+    return midiate.open_output(name=choose_output(midiate));
 
-def open_both_io():
-    return open_input(),open_output()
+def open_both_io(midiate):
+    return open_input(midiate),open_output(midiate)
 
 
 class Application(tkinter.Frame):

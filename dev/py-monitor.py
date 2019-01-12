@@ -2,8 +2,9 @@
 import midiate
 import devel
 
+midiate = midiate.Midiate()
 midiate.start_process()
-indev = devel.open_input();
+indev = devel.open_input(midiate);
 
 
 def get_note_name(midi_note):
