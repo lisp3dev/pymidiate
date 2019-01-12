@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import sys
 import subprocess
 import threading
@@ -19,7 +19,7 @@ callback_dic = None
 def trunc(str):
     return str[0:(-2 if crlf else -1)]
 
-# 大文字のみ
+
 def chr2hex(ascii):
     if ascii <= 57: return (ascii-48)
     else:           return ascii-65 + 10
@@ -118,7 +118,7 @@ def _prepare():
     global thread_monitor_stdout, thread_monitor_stderr
     global sem_1, sem_2
     global callback_dic
-    proc = subprocess.Popen('a:/dropbox/miditty/intermidiator',
+    proc = subprocess.Popen('a:/dropbox/home/git/intermidiator/intermidiator.exe',
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
