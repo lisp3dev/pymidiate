@@ -2,9 +2,9 @@
 import midiate
 import devel
 
-midiate = midiate.Midiate()
-midiate.start_process()
-indev = devel.open_input(midiate);
+mid = midiate.Midiator()
+mid.start_process()
+indev = devel.open_input(mid);
 
 
 def get_note_name(midi_note):
@@ -22,10 +22,10 @@ def mon(dev, sig , raw):
     devel.status(f'{sig.decode()} {sig_type}')
     print('受信: ', dev, sig, raw)
     
-midiate.callback(indev,'******',mon)
-midiate.listen(indev);
+mid.callback(indev,'******',mon)
+mid.listen(indev);
 
 
 devel.wait(title='MIDI signal monitor', text='信号をモニタするよDEMO')
 
-midiate.stop_process()
+mid.stop_process()
