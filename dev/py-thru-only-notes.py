@@ -6,7 +6,7 @@ import devel
 mid = midiate.Midiator()
 mid.start_process()
 indev,outdev = devel.open_both_io(mid);
-mid.send(outdev, 'C000')
+mid.send(outdev, 'C010')
 
 count = 0
 def thru(dev, msg, raw):

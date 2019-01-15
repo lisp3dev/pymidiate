@@ -9,6 +9,7 @@ led = None
 mid = midiate.Midiator()
 mid.start_process()
 indev,outdev = devel.open_both_io(mid);
+mid.send(outdev, b'C%X%02X'%(indev,34))
 
 current_base_note = None
 current_note = None
