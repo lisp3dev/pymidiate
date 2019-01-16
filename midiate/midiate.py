@@ -16,6 +16,9 @@ gResult = None
 gError = None
 callback_dic = None
 
+def getdir():
+    return __name__
+
 def trunc(str):
     return str[0:(-2 if crlf else -1)]
 

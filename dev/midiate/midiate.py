@@ -4,7 +4,17 @@ import sys
 import subprocess
 import threading
 import time
+import pkg_resources
 
+def get_default_bin_path():
+    path = pkg_resources.resource_filename(__name__, 'win32/intermidiator.exe')
+    if path.lower().find('a:\\dropbox\\home\\git\\pymidiate\\')==0:
+        # PGkids Laboratory Internal Environment
+        print('---------- DEVELOP ----------')
+        return 'a:/Dropbox/home/git/interMidiator/intermidiator.exe'
+    else:
+        # Public Environment
+        return path
 
 def chr2hex(ascii):
     if ascii <= 57: return (ascii-48)
@@ -39,7 +49,8 @@ def decode_to_raw(b):
         else: return (r1,r2,int_from_hex2(b[4],b[5]))
 
 class Midiator():
-    def __init__(self):
+    def __init__(self,interMidiator=get_default_bin_path()):
+        self.interMidiator = interMidiator
         self.proc = None
         self.crlf = None
         self.endmsg = None
@@ -112,7 +123,7 @@ class Midiator():
             sys.stdout.flush();
 
     def _prepare(self):
-        self.proc = subprocess.Popen('a:/dropbox/home/git/intermidiator/intermidiator.exe',
+        self.proc = subprocess.Popen(self.interMidiator, #'a:/dropbox/home/git/intermidiator/intermidiator.exe',
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
