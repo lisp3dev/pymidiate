@@ -180,7 +180,7 @@ class Midiator():
         hexstr = self.gResult;
         self.sem_2.release()
         handle = int_from_hex3(hexstr[0],hexstr[1],hexstr[2])
-        print(handle)
+        #print(handle)
         return handle
 
     def open_input(self, index=None, name=None):

@@ -10,6 +10,7 @@ mid = midiate.Midiator()
 mid.start_process()
 indev,outdev = devel.open_both_io(mid);
 mid.send(outdev, b'C%X%02X'%(indev,34))
+mid.send(outdev, b'B0X7B00')
 
 current_base_note = None
 current_note = None
