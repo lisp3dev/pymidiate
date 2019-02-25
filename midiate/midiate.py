@@ -112,14 +112,14 @@ class Midiator():
                 #sem_2.acquire()
 
             #else:        
-            print("[OUT]",line)
+            #print("[OUT]",line)
             sys.stdout.flush();
 
     def monitor_stderr(self):
         while True:
             line = self.proc.stderr.readline()
             if line==b'': return
-            print("[ERR]",line)
+            print(line.decode(),end='')
             sys.stdout.flush();
 
     def _prepare(self):
@@ -223,7 +223,17 @@ class Midiator():
         self.proc.stdin.flush()
 
 
-
+    def sync(self):
+        wr = self.proc.stdin.write
+        wr(b'ECHO SYNC')
+        wr(self.terminator)
+        self.proc.stdin.flush()
+        self.sem_1.acquire()
+        s = self.gResult;
+        self.sem_2.release()
+        if b'SYNC' != s:
+            raise(Exception('Midiator cannot syncronize'))
+        
     def _terminate(self):
         wr = self.proc.stdin.write
         wr(b'QUIT')
