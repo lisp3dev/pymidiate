@@ -21,6 +21,9 @@ delay['Time','Mix'] = 1000,40
 input('press any key to turn off the Delay')
 delay.off()
 
+input('press any key to turn on the Delay')
+delay.on()
+
 input('press any key to quit')
 g1on.disconnect()
 
