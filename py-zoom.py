@@ -1,12 +1,24 @@
-# -*- coding: utf-8 -*-
 
-import midiate
-import devel
+import midiate.zoom.g1on as g1
+import time
 
-mid = midiate.Midiator()
-mid.start_process()
-outdev = mid.open_output(name='ZOOM 1 Series')
-mid.send(outdev,b'C00A')
-mid.send(outdev,b'B04B56')
+z = g1.G1on()
 
-mid.stop_process()
+z.connect()
+z.clear_patch()
+
+c = z.make_patch('TScream','HotBox','MS1959',st2=False)
+
+for i in range(2):
+    time.sleep(2)
+    c[1].on()
+    c[0].off()
+    time.sleep(2)
+    c[0].on()
+    c[1].off()
+    time.sleep(2)
+    c[0].off()
+
+z.disconnect()
+
+

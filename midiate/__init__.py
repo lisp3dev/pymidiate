@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .midiate import *
+from .midiate import Midiator
