@@ -5,8 +5,9 @@ import devel
 mid = midiate.Midiator();
 mid.start_process()
 indev,outdev = devel.open_both_io(mid);
-#mid.send(outdev, 'C031')
 mid.send(outdev, 'C010')
+mid.send(outdev, 'B07A00')
+mid.send(outdev, 'B07800')
 
 note_count = 0
 def thru(dev, msg, raw):

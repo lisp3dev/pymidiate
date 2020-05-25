@@ -8,7 +8,7 @@ def choose_input(midiate):
     inputs = midiate.enum_input()
     def f(x):
         if x in inputs: return x
-    return (f('UM-1') or f('MPKmini2') or f('USB Oxygen 8 v2') or f('A-500S') or f('loopMIDI port') or
+    return (f('UM-1') or f('MPKmini2') or f('CASIO USB-MIDI') or f('USB Oxygen 8 v2') or f('A-500S') or f('loopMIDI port') or
             inputs[0])
 
 def choose_output(midiate):

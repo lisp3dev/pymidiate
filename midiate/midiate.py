@@ -81,8 +81,10 @@ class Midiator():
         self.__terminator = None
         self.__thread_monitor_stdout = None
         self.__thread_monitor_stderr = None
+        self.__thread_keepalive_sender = None
         self.__sem_1 = None
         self.__sem_2 = None
+        self.__sem_keepalive = None
         self.__gResult = None
         self.__gError = None
         self.__callback_dic = None
@@ -152,6 +154,13 @@ class Midiator():
                 print(line.decode(),end='')
                 sys.stdout.flush();
 
+
+    def __keepalive_sender(self):
+        while not self.__sem_keepalive.acquire(True,1.0):
+            self.__proc.stdin.write(b'\xFF')
+            self.__proc.stdin.flush()
+
+        
     def _prepare(self):
         self.__proc = subprocess.Popen(self.interMidiator, #'a:/dropbox/home/git/intermidiator/intermidiator.exe',
                                 stdin=subprocess.PIPE,
@@ -165,10 +174,16 @@ class Midiator():
             return False
 
         #__monitor_stdout, __monitor_stderr = self.generate_monitors();
-        self.__thread_monitor_stdout = threading.Thread(target=self.__monitor_stdout)
-        self.__thread_monitor_stderr = threading.Thread(target=self.__monitor_stderr)
         self.__sem_1 = threading.Semaphore(0)
         self.__sem_2 = threading.Semaphore(0)
+        self.__sem_keepalive = threading.Semaphore(0)
+
+        self.__thread_monitor_stdout = threading.Thread(target=self.__monitor_stdout)
+        self.__thread_monitor_stderr = threading.Thread(target=self.__monitor_stderr)
+
+        self.__thread_keepalive_sender = threading.Thread(target=self.__keepalive_sender)
+        self.__thread_keepalive_sender.start()
+        
         self.__callback_dic = {}
         return True
 
@@ -312,6 +327,9 @@ class Midiator():
             raise(Exception('Midiator cannot syncronize'))
         
     def _terminate(self):
+        self.__sem_keepalive.release()
+        self.__thread_keepalive_sender.join()
+        
         wr = self.__proc.stdin.write
         wr(b'QUIT')
         wr(self.__terminator)

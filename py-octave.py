@@ -5,6 +5,8 @@ import devel
 mid = midiate.Midiator()
 mid.start_process()
 indev,outdev = devel.open_both_io(mid);
+mid.send(outdev, 'B07A00')
+mid.send(outdev, 'B07800')
 
 not_initialized = True
 def init(cur_ch,ch1,ch2):
