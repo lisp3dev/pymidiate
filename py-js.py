@@ -17,7 +17,7 @@ mid = midiate.Midiator()
 mid.start_process()
 #outdev= mid.open_output(name='Microsoft GS Wavetable Synth')
 outdev= mid.open_output(name='CASIO USB-MIDI')
-mid.send(outdev, 'C000')
+mid.send(outdev, 'C010')
 
 JS_STOP  = 7  #終了ボタン
 

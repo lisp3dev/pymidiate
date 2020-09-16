@@ -19,7 +19,7 @@ def choose_output(midiate):
             outputs[0])
 
 def open_input(midiate):
-    return midiate.open_input(name=choose_input(midiate));
+    return midiate.open_input(name=choose_input(midiate),translate=8);
 
 def open_output(midiate):
     return midiate.open_output(name=choose_output(midiate));
@@ -52,7 +52,8 @@ class Application(tkinter.Frame):
 
 statusLabel = None
 def status(text):
-    statusLabel.config(text=text)
+    if statusLabel:
+        statusLabel.config(text=text)
 
 def wait(title="MIDI信号処理デモ",text=""):
     root = tkinter.Tk()
