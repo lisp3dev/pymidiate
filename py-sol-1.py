@@ -16,7 +16,7 @@ for i in range(2):
 
 def generate_target_note(guide):
     while True:
-        target = guide + randint(-7,7)
+        target = guide + randint(-12,12)
         if target != guide and target >= 0 and target <= 127:
             return target
 
